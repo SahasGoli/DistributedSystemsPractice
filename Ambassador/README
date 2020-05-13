@@ -1,1 +1,16 @@
 This is a request splitting ambassador that will split 10% of the incoming HTTP requests to an experimental server.
+Here are all the statements required to get the load balancing pod running:
+
+```
+kubectl create -f web-deployment.yaml
+kubectl expose deployment web-deployment --port=80 --type=ClusterIP --name web-deployment
+kubectl create -f experiment-deployment.yaml
+kubectl expose deployment experiment-deployment --port=80 --type=ClusterIP --name experiment-deployment
+
+kubectl create configmap ambassador-config --from-file=conf.d
+kubectl create -f ambassador-deployment.yaml
+kubectl expose deployment ambassador-deployment --port=80 --type=LoadBalancer
+kubectl get pods --output=wide
+kubectl get services
+kubectl get services --watch
+```
