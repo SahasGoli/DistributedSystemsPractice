@@ -1,0 +1,8 @@
+Lab that has you deploy a replicated load balancing service that will process requests for the definition of English words using a pre-existing docker image.
+
+Commands to Deploy:
+kubectl create -f loadbalancer-deployment.yaml
+kubectl expose deployment loadbalancer-deployment --port=8080 --type=LoadBalancer
+kubectl get pods --output=wide
+kubectl get services
+kubectl get services --watch
